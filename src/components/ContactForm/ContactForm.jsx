@@ -4,8 +4,11 @@ import { ErrorMessage } from "formik";
 import { nanoid } from "nanoid";
 import * as Yup from "yup";
 import css from "./ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
-export default function ContactForm({ onAddContact }) {
+export default function ContactForm() {
+  const dispatch = useDispatch();
   const fieldNameId = useId();
   const fieldNumberId = useId();
 
@@ -22,7 +25,10 @@ export default function ContactForm({ onAddContact }) {
   function handleSubmit(values, actions) {
     const newContact = { ...values, id: nanoid() };
 
-    onAddContact(newContact);
+    dispatch(addContact(newContact));
+
+    console.log(newContact, "newContact");
+    // onAddContact(newContact);
     actions.resetForm();
   }
 
@@ -38,7 +44,7 @@ export default function ContactForm({ onAddContact }) {
           type="text"
           name="name"
           id={fieldNameId}
-          autocomplete="off"
+          autoComplete="off"
         ></Field>
         <ErrorMessage className={css.errorText} name="name" component="p" />
 
@@ -48,7 +54,7 @@ export default function ContactForm({ onAddContact }) {
           name="number"
           id={fieldNumberId}
           placeholder="XXX-XX-XX"
-          autocomplete="off"
+          autoComplete="off"
         ></Field>
         <ErrorMessage className={css.errorText} name="number" component="p" />
 
