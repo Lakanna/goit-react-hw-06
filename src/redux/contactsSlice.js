@@ -10,7 +10,6 @@ const contactsSlice = createSlice({
   },
   reducers: {
     addContact: (state, action) => {
-      console.log(action.payload, "action in reducers");
       return { ...state, items: [...state.items, action.payload] };
     },
     deleteContact: (state, action) => {
@@ -22,7 +21,7 @@ const contactsSlice = createSlice({
   },
 });
 
-export const getContacts = (state) => state.contact.items;
+export const selectContacts = (state) => state.contacts.items;
 
 export const { addContact, deleteContact } = contactsSlice.actions;
 
